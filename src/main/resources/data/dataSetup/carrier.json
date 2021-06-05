@@ -1,0 +1,4 @@
+{
+  "query":"mutation CreateCarrier($carrierRef:String!, $carrierName:String!, $retailerId:ID!) {\n  createCarrier(input:{\n    ref:$carrierRef, \n    name:$carrierName, \n    retailer:{id:$retailerId},\n  type: \"DEFAULT\"\n  }){\n    id\n    ref\n    name\n  }\n}",
+  "variables":{"carrierRef":"DEFAULT_CARRIER:${retId}","carrierName":"DEFAULT","retailerId":"${retId}"},"operationName":"CreateCarrier"
+}

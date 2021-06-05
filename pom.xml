@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>com.test</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
+
+  <groupId>com.test</groupId>
+  <artifactId>Gatling</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <gatling.version>3.3.0</gatling.version>
+    <gatling-maven-plugin.version>3.0.4</gatling-maven-plugin.version>
+    <scala.version>2.12.10</scala.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-app</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>it.bitbl</groupId>
+      <artifactId>scala-faker_2.12</artifactId>
+      <version>0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.json4s</groupId>
+      <artifactId>json4s-jackson_2.12</artifactId>
+      <version>3.7.0-M6</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-recorder</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20200518</version>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>${gatling-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+<!--          <simulationClass>dataSetup.test</simulationClass>-->
+          <simulationClass>dataSetup.GraphQLQueriesTest</simulationClass>
+          <jvmArgs>
+            <jvmArg>-Denv=stable</jvmArg>
+            <jvmArg>-DbaseURL=${baseURL}</jvmArg>
+            <jvmArg>-DreferenceStartsWith=${referenceStartsWith}</jvmArg>
+            <jvmArg>-Daccount=${account}</jvmArg>
+            <jvmArg>-DnoOfAccount=${noOfAccount}</jvmArg>
+            <jvmArg>-DnoOfRetailer=${noOfRetailer}</jvmArg>
+            <jvmArg>-DnoOfNetwork=${noOfNetwork}</jvmArg>
+            <jvmArg>-DnoOfLocation=${noOfLocation}</jvmArg>
+            <jvmArg>-DnoOfCategory=${noOfCategory}</jvmArg>
+            <jvmArg>-DtotalStandardProduct=${totalStandardProduct}</jvmArg>
+            <jvmArg>-DtotalProductPerStandard=${totalProductPerStandard}</jvmArg>
+            <jvmArg>-DtotalStandardWithoutChild=${totalStandardWithoutChild}</jvmArg>
+            <jvmArg>-DtotalVariantWithoutParent=${totalVariantWithoutParent}</jvmArg>
+            <jvmArg>-DfromUser=${fromUser}</jvmArg>
+            <jvmArg>-DtoUser=${toUser}</jvmArg>
+            <jvmArg>-DrampUpDuration=${rampUserDuration}</jvmArg>
+            <jvmArg>-Dduration=${duration}</jvmArg>
+            <jvmArg>-Dthroughput=${throughput}</jvmArg>
+            <jvmArg>-Dusers=${users}</jvmArg>
+            <jvmArg>-DiterationCount=${iterationCount}</jvmArg>
+            <jvmArg>-Xms2g</jvmArg>
+            <jvmArg>-Xmx5g</jvmArg>
+          </jvmArgs>
+          <!--<fork>true</fork>-->
+          <propagateSystemProperties>true</propagateSystemProperties>
+          <!-- the name of the single Simulation class to run -->
+        <runMultipleSimulations>false</runMultipleSimulations>                   <!-- if the plugin should run multiple simulations sequentially -->
+<!--        <includes>                                                               &lt;!&ndash; include filters, see dedicated section below &ndash;&gt;-->
+<!--          <include>virtualView.HDOrder</include>-->
+<!--        </includes>-->
+      <runDescription>This-is-the-run-description</runDescription>             <!-- short text that will be displayed in the HTML reports -->
+       <simulationsFolder>${project.basedir}/src/test/scala</simulationsFolder> <!-- where the simulations to be compiled are located -->
+        <resourcesFolder>${project.basedir}/src/test/resources</resourcesFolder> <!-- where the test resources are located -->
+        <resultsFolder>${project.basedir}/target/gatling</resultsFolder>         <!-- where the simulation log and the HTML reports will be generated -->
+      </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.4.4</version>
+        <!-- Tell the scala plugin to compile the Gatling simulations. By default it looks for the Scala files in src/main/scala -->
+        <executions>
+          <execution>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>add-source</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      <!-- The uber jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>io.gatling.app.Gatling</mainClass>
+                </transformer>
+              </transformers>
+              <!-- Exclude manifest signature files.
+                  https://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar
+              -->
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

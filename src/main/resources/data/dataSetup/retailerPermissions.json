@@ -1,0 +1,40 @@
+{
+  "roleContextList":
+  [
+    {
+      "roleId": "GRAPHQL",
+      "contextType": "RETAILER",
+      "contextId": "${retId}"
+    },
+    {
+      "roleId": "GRAPHQL",
+      "contextType": "ACCOUNT",
+      "contextId": "0"
+    },
+    {
+      "roleId": "ORCHESTRATION_ADMIN",
+      "contextType": "RETAILER",
+      "contextId": "${retId}"
+    },
+    {
+      "roleId": "ADMIN",
+      "contextType": "RETAILER",
+      "contextId": "${retId}"
+    },
+    {
+      "roleId": "ADMIN",
+      "contextType": "ACCOUNT",
+      "contextId": "0"
+    },
+    {
+      "roleId": "DEVELOPER",
+      "contextType": "ACCOUNT",
+      "contextId": "0"
+    },
+    {
+      "roleId": "DEVELOPER",
+      "contextType": "RETAILER",
+      "contextId": "${retId}"
+    }
+  ]
+}

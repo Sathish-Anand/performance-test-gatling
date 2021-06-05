@@ -1,0 +1,10 @@
+{
+  "simulation": "dataSetup.GraphQLQueriesTest",
+  "simulationId": "graphqlqueriestest",
+  "start": 1613430381953,
+  "description": "This-is-the-run-description",
+  "scenarios": ["Queries With Auth"],
+  "assertions": [
+
+  ]
+}
