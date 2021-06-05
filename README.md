@@ -35,3 +35,9 @@ maven-shade-plugin is used the compile the project and create a jar of whole pro
 **Result:**
 
 Html file for the test will be saved under the ```~/result/index.html```
+
+*Sample Result*
+
+![Result](result.jpg)
+
+![Result](result_1.jpg)
